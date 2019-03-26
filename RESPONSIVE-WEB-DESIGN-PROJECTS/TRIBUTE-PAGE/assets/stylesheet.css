@@ -1,0 +1,31 @@
+body {
+  background-color: white;
+}
+
+h1 {
+  background-color: grey;
+  text-align: center;
+  
+}
+
+#img-caption {
+  text-align: center;
+}
+
+img {
+  display:block;
+  margin: 0 auto;
+  
+  width: 400px;
+  max-width: 100%;
+  
+  height: auto;
+}
+
+#tribute-info {
+  text-align: center;
+}
+
+#tribute-link {
+  display: inline;
+}
