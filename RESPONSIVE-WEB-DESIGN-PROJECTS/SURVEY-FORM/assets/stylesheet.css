@@ -1,0 +1,95 @@
+body {
+  display: block;
+  text-align: center;
+  background-color: #a0c1f7;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas:
+    "Info Info"
+    "Name Name"
+    "Email Email"
+    "Age Age"
+    "Choice Choice"
+    "Recommend Recommend"
+    "Future Future"
+    "Text Text"
+    "Submit Submit"
+    ;
+  background-color: #e5e5de;
+  padding: 10px;
+}
+#description {
+  grid-area: Info;
+}
+
+#name-form {
+  padding:10px;
+  grid-area: Name;
+}
+#email-form {
+  grid-area: Email;
+  padding:10px;
+}
+
+#number-form {
+  grid-area: Age;
+  padding:10px;
+  padding-right: 90px
+}
+
+#dropdown-form {
+  grid-area: Choice;
+  padding: 10px;
+  padding-right:125px;
+}
+
+#radio-form {
+  grid-area: Recommend;
+  padding:10px;
+  padding-right: 255px;
+}
+
+#checkbox-form {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "Names Choices";
+  grid-area: Future;
+}
+
+#checkbox {
+  grid-area: Names;
+  justify-self: end;
+  
+}
+#checkbox-list {
+  grid-area: Choices;
+  justify-self:start;
+  
+}
+#maybe-container {
+  
+  padding-left: 369px;
+}
+
+#not-sure-container{
+  padding-left: 382px;
+}
+
+ul {
+  list-style:none;
+}
+
+#textarea {
+  grid-area: Text;
+  padding: 10px;
+}
+
+button {
+  grid-area: Submit;
+  padding: 10px;
+  width: 100px;
+  justify-self: center;
+}

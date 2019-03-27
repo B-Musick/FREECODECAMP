@@ -1,0 +1,77 @@
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SURVEY</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/stylesheet.css" type="text/css">
+  </head>
+  <body>
+    <h1 id="title">Survey Form</h1>
+
+    <form id="survey-form">
+          <p id="description">Let me know what sort of things you want to see and how I can improve the site.</p>
+        <div id="name-form">
+            <label for="name" id="name-label">*Name:</label>
+            <input type="name" id="name" required placeholder="Enter your name" name="name">
+        </div>
+        <div id="email-form">
+            <label for="email" id="email-label">*Email: </label>
+            <input type="email" id="email" required placeholder="Enter your email" name="email">
+        </div>
+        <div id="number-form">
+          <label for="age"id="number-label">*Age:</label>
+          <input type="number" id="number" required placeholder="Enter your age" name = "age" min="1" max="130">
+        </div>
+      
+        <div id="dropdown-form">
+            <label for="dropdown">What choice best describes you?</label>
+            <select id="dropdown">
+            <option value="">--Please choose an option--</option>
+            <option value="student">Student</option>
+            <option value="full time job">Full Time Job</option>
+            <option value="full time learner">Full Time Learner</option>
+            <option value="prefer not to say">Prefer not to say</option>
+            <option value="other">Other</option>
+            </select>
+        </div>
+        
+        <div id="radio-form">
+            <label id="radio-name">How likely is it you would recommend my page to a friend?:</label>
+            <label for="definately"><input type="radio" value="definately" name="feedback">Definately</label>
+            <div id="maybe-container">
+            <label for="maybe"><input type="radio" value="maybe" name="feedback">Maybe</label>
+            </div>
+            <div id="not-sure-container">
+            <label for="not-sure"><input type="radio" value="not-sure" name="feedback">Not Sure</label>
+            </div>
+        </div>
+        
+        <div id="checkbox-form">
+            <label id="checkbox"> Things that should be improved in the future? (Check all that apply):
+            </label>
+            <ul id="checkbox-list">
+            <li><label for="front-End">
+            <input id="front-end" type="checkbox" name="improvements" value="front-end">Front-End Projects
+            </label>
+                </li>
+                <li>
+            <label for="back-End">
+            <input id="back-end" type="checkbox" name="improvements" value="back-end">Back-End Projects
+            </label>
+                </li>
+            </ul>
+        </div>
+        
+        <div id="textarea">
+            <label for="Comments">Any Comments or Suggestions?: </label>
+            <textarea id="Comments" name="Suggestions" rows="5" columns="100"> </textarea>
+            
+        </div>
+        
+        <button type="submit" id="submit">SUBMIT</button>
+        
+    </form>
+  </body>
+</html>
