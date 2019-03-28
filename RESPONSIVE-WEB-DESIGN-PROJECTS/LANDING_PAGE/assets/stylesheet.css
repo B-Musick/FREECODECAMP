@@ -1,0 +1,125 @@
+body {
+  font-family: Oswald;
+}
+header {
+  display: flex;
+  position: fixed;
+  top:0;
+
+}
+@media (max-width: 600px) {
+  #nav-bar li{
+    display: inline-block;
+  }
+}
+img {
+  height:50px;
+  
+}
+
+header #nav-bar {
+  display: flex;
+  /* Position fixed and nav list set on the right of screen below*/
+  position: fixed;
+  right: 0px;
+  
+}
+#nav-bar ul {
+  display: flex; 
+  list-style: none;
+  justify-content: right;
+  text-align:center;
+  flex-wrap: wrap;
+  
+  
+  
+}
+#nav-bar li {
+  background-color: black;
+  padding: 25px 20px;
+  margin-top: -25px;
+  margin-right: -30px;
+  width: 100px;
+  
+}
+a {
+  padding: 0px 30px 0 0;
+  text-decoration: none;
+  color: white; 
+}
+
+#pages-logo img{
+  display:block;
+  margin: auto;
+  width: 600px;
+  height: auto;
+}
+
+#video-container {
+  background-color:#E2DDE5;
+  padding: 30px;
+  margin-top: 100px; 
+}
+#video {
+  display:block;
+  margin: auto; /*Center content using this when the content is block display*/
+}
+#build-site {
+  display: block;
+  text-align:center;
+  padding-top:80px;
+  padding-bottom: 80px;
+}
+
+#build-site h1 {
+  font-size: 30px;
+}
+#no-list {
+  font-size: 25px;
+  list-style: none;
+  
+}
+
+#no-list img{
+  width: 20px;
+  height: auto;
+  padding-right: 10px;
+}
+
+#form {
+  background-color:#E2DDE5;
+  padding-bottom: 50px;
+}
+
+label {
+  
+  padding: 20px;
+  padding-top: 50px;
+}
+#email, label {
+  display: block;
+  margin:auto;
+  text-align: center;
+
+  
+}
+input {
+  font-family:Oswald;
+  width: 200px;
+  height: 25px;
+  border-width: 2px;
+  border-color: black;
+}
+
+#submit {
+  font-family: Oswald;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  height: 20px;
+  padding: 10px;
+  padding-bottom: 25px;
+  text-align:center;
+  background-color: black;
+  color: white;
+}
