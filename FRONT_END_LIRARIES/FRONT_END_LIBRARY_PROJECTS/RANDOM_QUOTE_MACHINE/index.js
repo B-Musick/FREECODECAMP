@@ -18,13 +18,39 @@ const selectors = {
     tweetQuote: document.getElementById('tweet-quote')
 }
 
+// Method to generate quote
 const randomQuote = () => {
-    // Return a random quote
+    // Return a random quote// When click button should get #text and replace it with new quote
+    selectors['newQoute']
     let randomIndex = Math.floor(quotes.length * Math.random());
-    return quotes[randomIndex].quote;
+    return quotes[randomIndex];
 }
+
+/**********************  GENERATE FIRST QUOTE  ********************************/
+
+// Get a new quote
+generatedQoute = randomQuote();
+
 // Sets the text in the quote-box
-selectors['text'].innerHTML = randomQuote();
+selectors['text'].innerHTML = generatedQoute.quote;
 
+// Set the author of the quote
+selectors['author'].innerHTML = generatedQoute.author;
 
+/**********************  GENERATE QUOTE FROM BUTTON ***************************/
+// When click button should get #text and replace it with new quote
+selectors['newQoute'].addEventListener('click', ()=>{
+    let newGeneratedQoute = randomQuote();
+    while (newGeneratedQoute.quote === selectors['text'])
+        // If the quote is the same as the previous, the loop will generate a new one
+        newGeneratedQoute = randomQuote();
+
+        if(generatedQoute.quote !== selectors['text']){
+            console.log('hi');
+            // If not the same as the previous quote
+            selectors['text'].innerHTML = newGeneratedQoute.quote;
+            selectors['author'].innerHTML = newGeneratedQoute.author;
+            
+        }
+})
 
