@@ -1,0 +1,28 @@
+.container {
+    display: grid;
+    height: 700px;
+    grid-template: repeat(4,1fr) / repeat(4,1fr);
+    grid-gap: 3px;
+}
+.header {
+    background-color: blue;
+    grid-column: 2/-1;
+}
+
+.main {
+    background-color: aqua;
+    grid-column: 1;
+    grid-row: 1/4;
+}
+
+.content {
+    background-color: rebeccapurple;
+    grid-column:2/-1;
+    grid-row: 2/4;
+}
+
+.footer {
+    background-color: greenyellow;
+    grid-column:1/-1;
+    grid-row: 4/-1;
+}

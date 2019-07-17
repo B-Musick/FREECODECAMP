@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey Form</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+    <div class="header">
+        <h1 id="title">SURVEY FORM</h1>
+        
+    </div>
+    
+    <form action="" id="survey-form">
+        <p id="description">Please fill out this form to provide feedback on the website</p>
+        <div class="form-inputs">
+            
+        </div>
+        <div class="name">
+            <label for="name" id="name-label">
+                Name: <input type="text" id="name" placeholder="Name" required>
+            </label>
+        </div>
+
+        <div class="email">
+            <label for="email" id="email-label">
+                E-mail: <input type="email" id="email" placeholder="Email" required>
+            </label>
+        </div>
+
+        <div class="number-gender">
+            <label for="number" id="number-label">
+                Rating: <input type="number" id="number" placeholder="Rating" min="0" max="9">
+            </label>
+            
+            <label for="dropdown">
+                Gender:
+                <select name="dropdown" id="dropdown">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="selection">
+            <p>Pick your favorite thing about this form?</p>
+            <div class="label-header">
+                <input type="radio" id="header" name="favorite" value="header">
+                <label for="header">Header</label>
+            </div>
+            <div class="form">
+                <input type="radio" id="form" name="favorite" value="form">
+                <label for="form">Form</label>
+            </div>
+            <div class="nothing">
+                <input type="radio" id="nothing" name="favorite" value="nothing">
+                <label for="nothing">Nothing</label>
+            </div>
+
+        </div>
+
+        <div class="hobbies">
+            <label for="hobbies">
+                <p>Hobbies:</p>
+                <input type="checkbox" name="hobbies" id="" value="golf">Golf<br>
+                <input type="checkbox" name="hobbies" id="" value="chess">Chess<br>
+                <input type="checkbox" name="hobbies" id="" value="programming">Programming<br>
+                <input type="checkbox" name="hobbies" id="" value="skateboarding">Skateboarding<br>
+            </label>
+        </div>
+
+        <div class="comments">
+            <p>Additional Comments</p>
+            <textarea name="" id="comments" cols="50" rows="10"></textarea>
+        </div>
+
+        <div class="submit">
+            <input type="submit" id='submit'>
+        </div>
+        
+
+        
+
+
+        
+        
+    </form>
+    
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
+</html>

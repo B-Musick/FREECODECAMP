@@ -1,0 +1,25 @@
+html {
+    height: 100vh;
+}
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    grid-auto-rows: 150px;
+    grid-gap: 3px;
+}
+.header {
+    background-color: blue;
+}
+
+.main {
+    background-color: aqua;
+}
+
+.content {
+    background-color: rebeccapurple;
+}
+
+.footer {
+    background-color: greenyellow;
+}

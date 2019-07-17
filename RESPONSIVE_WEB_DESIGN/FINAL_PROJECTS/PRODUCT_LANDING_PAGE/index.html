@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>GITHUB LANDING PAGE</title>
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+    <header id="header">
+        <div id="images">
+            <!--Had to make this div
+so that I could justify the content to have space between-->
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Cat Logo"
+                id="header-img"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png"
+                alt="GitHub Banner" id="header-img2">
+        </div>
+        <nav id="nav-bar">
+            <ul>
+                <a href="#build-site" class="nav-link">
+                    <li>Features</li>
+                </a>
+                <a href="#video" class="nav-link">
+                    <li>Information</li>
+                </a>
+                <a href="#email" class="nav-link">
+                    <li>Learn More</li>
+                </a>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <figure id="pages-logo">
+            <img alt="Pages logo" src="https://miro.medium.com/max/1054/1*osyaA6QwQra6llfoFYAOkw.png">
+
+        </figure>
+        <section id="video-container">
+            <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/COxGHDYV4aY" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </section>
+        <article id="build-site">
+            <h1>Build a website with ease.</h1>
+            <ul id="no-list">
+                <li><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Octicons-database.svg">No Databases
+                </li>
+                <li><img src="https://cdn4.iconfinder.com/data/icons/cloud-computing-solid-icons-vol-1/72/15-512.png">No
+                    Servers</li>
+                <li><img
+                        src="data:image/png;base64,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">No
+                    Cost</li>
+            </ul>
+        </article>
+
+        <form id="form" action="https://www.freecodecamp.com/email-submit" method="post">
+            <label for="email">
+                Want to learn more?</label><input id="email" type="email" placeholder="Input your email..." required
+                name="email">
+            <input id="submit" type="submit" value="Submit">
+
+
+
+        </form>
+
+    </main>
+
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+html {
+    height: 1vh;
+}
+.wrapper {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: minmax(100%,1vh) minmax(auto,1000px) 300px;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    float:left;
+    margin-right: 30px;
+}
+
+#navbar {
+    margin-top: -10px;
+    background-color: black;
+    position:fixed; 
+    width: 100%;
+    /* padding: 10px;  */
+}
+
+#navbar ul {
+    
+    list-style: none;
+}
+
+#navbar ul a {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    padding:10px;
+    height:100%;
+    
+    
+}
+
+#welcome-section {
+    background-color: goldenrod;
+    text-align: center;
+    padding-top: 300px;
+}
+
+#projects {
+    grid-row: 2/3;
+    background-color: greenyellow;
+    display:grid;
+    grid-template-columns: repeat(2, minmax(200px,1fr));
+    grid-auto-rows: repeat(auto-fit,minmax(200px,1fr)); 
+    grid-gap: 10px;
+    justify-items: center;
+    
+    
+}
+
+@media (max-width: 500px) {
+    #projects {
+        display:grid;
+        grid-template-columns: repeat(1,1fr);
+        grid-auto-rows: 1fr; 
+        justify-items: center;
+    }
+    
+
+}
+
+h4 {
+    margin-top:-5px;
+    background-color: white;
+    padding: 5px 0;
+    border: 3px solid blue;
+    border-top: 0;
+    width: 250px;
+    max-height: auto;
+    
+
+}
+
+.project-tile {
+    padding-top: 10px;
+    text-align: center
+}
+
+.project-tile a img {
+    width: 250px;
+    max-height: auto;
+    border: 3px solid blue;
+}
+
+.tribute {
+    
+}
+
+.pokemon{
+    
+}
+
+.form {
+    
+}
+
+.other {
+    
+}
+
+footer {
+    background-color:white;
+    grid-row:3/4;
+    height: 1fr;
+    text-align: center;
+    padding-top: 30px;
+}
+
+footer a > img{
+    height: 200px;
+    width: auto;
+}

@@ -1,0 +1,28 @@
+html {
+    height: 100vh;
+}
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: [main-start] 1fr [header-start main-end content-start] 4fr [header-end content-end];
+    grid-template-rows: [main-start] 1fr[content-start] 3fr[content-end footer-start] 1fr [main-end footer-end];
+    grid-gap: 3px;
+}
+.header {
+    background-color: blue;
+    grid-column: header;
+}
+
+.main {
+    background-color: aqua;
+    grid-area: main;
+}
+
+.content {
+    background-color: rebeccapurple;
+    grid-area: content;
+}
+
+.footer {
+    background-color: greenyellow;
+}

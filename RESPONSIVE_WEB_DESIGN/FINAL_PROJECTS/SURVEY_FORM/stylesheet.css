@@ -1,0 +1,36 @@
+body {
+    background-color: steelblue;
+    margin:0;
+}
+.header {
+    background-color: steelblue;
+    text-align: center;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    padding: 20px;
+    
+    
+}
+#description {
+    border: 10px solid black;
+}
+.name {
+    border-top: 10px solid black;
+}
+
+#description, .name, .email, .number-gender,.selection,.hobbies, .comments, .submit {
+    background-color:lightgrey;
+    grid-column: 2/3;
+    padding: 10px;
+    border-right: 10px solid black;
+    border-left:  10px solid black;
+}
+
+.submit {
+    text-align: center;
+    border-bottom: 10px solid black;
+}
+

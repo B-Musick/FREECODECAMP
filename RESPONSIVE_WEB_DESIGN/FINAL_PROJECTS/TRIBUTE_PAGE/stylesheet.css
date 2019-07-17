@@ -1,0 +1,30 @@
+body {
+    width: 100%;
+}
+#title {
+    text-transform: uppercase;
+    background: steelblue;
+    text-align: center;
+    padding: 2em 0;
+    width: 100%;
+}
+
+#img-div {
+    background: steelblue;
+    text-align: center;
+    padding-bottom: 2em;
+    
+    
+}
+ul {
+    list-style: none;
+    text-align: center;
+}
+caption {
+    
+    
+    
+}
+#image {
+    width: 50%; 
+}
