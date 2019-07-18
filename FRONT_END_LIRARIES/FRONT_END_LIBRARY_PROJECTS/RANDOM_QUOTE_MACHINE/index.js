@@ -41,12 +41,12 @@ selectors['author'].innerHTML = generatedQoute.author;
 // When click button should get #text and replace it with new quote
 selectors['newQoute'].addEventListener('click', ()=>{
     let newGeneratedQoute = randomQuote();
-    while (newGeneratedQoute.quote === selectors['text'])
+    while (newGeneratedQoute.quote === ""+selectors['text'].textContent)
         // If the quote is the same as the previous, the loop will generate a new one
         newGeneratedQoute = randomQuote();
 
-        if(generatedQoute.quote !== selectors['text']){
-            console.log('hi');
+        if(newGeneratedQoute.quote !== ""+selectors['text'].textContent){
+            
             // If not the same as the previous quote
             selectors['text'].innerHTML = newGeneratedQoute.quote;
             selectors['author'].innerHTML = newGeneratedQoute.author;

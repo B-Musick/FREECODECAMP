@@ -1,17 +1,37 @@
 body{
     width: 100vw;
     height: 100vh;
+    background: linear-gradient(#57e69c,#27704a);
 }
 .page-container{
     
     width: 100%;
-    height: 100%;
+    
     display: flex;
     justify-content: center;
 }
+
 #quote-box{
+    background-color: rgb(211, 243, 232);
     margin-top: 10%;
     border: black solid 1px;
-    width: 40%;
-    height: 100px;
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    padding-top: 30px;
+    overflow: auto; /* Makes it so the content changes the height of the qoute box
+                    Just make sure the height of the page-container isnt 100%*/
+}
+
+#text {
+    font-style: italic;
+}
+
+.quote {
+    /* Quotations */
+    font-weight: bold;
+}
+#author {
+    text-align: right;
+    margin-right: 30px;
 }
