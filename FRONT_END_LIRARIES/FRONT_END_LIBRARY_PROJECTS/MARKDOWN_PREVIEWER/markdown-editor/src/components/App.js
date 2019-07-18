@@ -5,7 +5,7 @@ import Previewer from './Previewer';
 class App extends React.Component{
     state = {previewerString: ' '};
 
-    onTextAreaChange(textArea) {
+    onTextAreaChange = (textArea) =>{
         // When text input to textArea, need to get state from TextEditor. When
         // handleChange called in textarea, it will call this method which is passed 
         // into the component, and pass in the current text through 'textArea' variable.
@@ -19,8 +19,11 @@ class App extends React.Component{
     render() {
         return (
             <div>
+                {/* Pass in the method to retrieve the textarea state */}
                 <TextEditor onTextChange={this.onTextAreaChange}/>
-                <Previewer />
+                {/* Pass in the current textarea text */}
+                <Previewer text= {this.state.previewerString}/>
+                {console.log(this.state.previewerString)}
             </div>
 
         )
