@@ -1,0 +1,30 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(75, 191, 245);
+}
+
+.page-container{
+    
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: 40vw 60vw;
+    grid-template-rows: 100vh;
+    grid-gap: 30px;
+}
+#editor{
+    background-color: aquamarine;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    grid-column: 1/2;
+    width: 40vw;
+    height: 100vh;
+    border: rgb(18, 88, 121) solid 3px;
+}
+
+#preview {
+    grid-column: 2/3;
+   
+}
+img{
+    width: 30vw;
+}

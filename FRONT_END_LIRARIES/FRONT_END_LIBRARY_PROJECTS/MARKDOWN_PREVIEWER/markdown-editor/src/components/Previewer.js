@@ -13,7 +13,7 @@ class Previewer extends React.Component {
     render(){
         return (
             // Previewer - shows html form of textEditor text
-            <div id="previewer" dangerouslySetInnerHTML={this.rawMarkup()} />
+            <div id="preview" dangerouslySetInnerHTML={this.rawMarkup()} />
         )
     }
 }

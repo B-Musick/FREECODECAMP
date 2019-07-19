@@ -3,7 +3,7 @@ import TextEditor from './TextEditor'
 import Previewer from './Previewer';
 
 class App extends React.Component{
-    state = {previewerString: ' '};
+    state = {previewerString: ''};
 
     onTextAreaChange = (textArea) =>{
         // When text input to textArea, need to get state from TextEditor. When
@@ -23,7 +23,7 @@ class App extends React.Component{
                 <TextEditor onTextChange={this.onTextAreaChange}/>
                 {/* Pass in the current textarea text */}
                 <Previewer text= {this.state.previewerString}/>
-                {console.log(this.state.previewerString)}
+                
             </div>
 
         )
