@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectPad } from '../actions'
+import PadDetail from './PadDetail';
 
 // import PadDetail from './components/PadDetail';
 
@@ -10,8 +11,9 @@ class DrumPads extends React.Component {
         // We will render the list of PadDetail's here, then render it
         return this.props.pads.map((pad) => {
             // Loop through list of pad objects
-            return pad.key
-
+            
+            return <PadDetail padKey={pad.key}/>
+            
         });
     }
     render() {

@@ -5,6 +5,7 @@ import { combineReducers } from 'redux';
 // drum pad list reducer providing list of all the pads
 const drumListReducer = () => {
     // Return array of drum-pad objects
+    
     return [
         { key: 'Q', 'Q': "https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3" },
         { key: 'W', 'W': "https://s3.amazonaws.com/freecodecamp/drums/Heater-6.mp3" },
