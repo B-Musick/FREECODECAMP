@@ -6,13 +6,22 @@ import PadDetail from './PadDetail';
 // import PadDetail from './components/PadDetail';
 
 class DrumPads extends React.Component {
+
     // selectPad action creator will be called here 
     renderList() {
         // We will render the list of PadDetail's here, then render it
         return this.props.pads.map((pad) => {
             // Loop through list of pad objects
             
-            return <PadDetail padKey={pad.key}/>
+            return (
+                <button
+                // This will select the beat to play in the reducer using event handler
+                    onClick={()=>this.props.selectPad(pad.key)}
+                    >
+                    <PadDetail padKey={pad.key} />
+                </button>
+            )
+           
             
         });
     }

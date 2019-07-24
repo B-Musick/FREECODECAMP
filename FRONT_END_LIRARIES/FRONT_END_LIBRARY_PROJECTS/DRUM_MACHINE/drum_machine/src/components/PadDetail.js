@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { selectPad } from '../actions'
 
 class PadDetail extends React.Component {
     render(){
@@ -13,7 +14,7 @@ class PadDetail extends React.Component {
                 <div className="drum-pad">
                     {/* Each should have id describing audio, inner text with key 
             The src = thisKey letter passed in*/}
-                    <button>{pad.padKey}</button>
+                    {pad.padKey}
                     <audio key={pad.key} className="clip" id={pad.padKey} src={pad.pads[pad.padKey]}>{pad.key}</audio>
                     {/* <button onClick={document.getElementById().play()} ></button> */}
 
@@ -33,7 +34,8 @@ const mapStateToProps = (state, ownProps) => {
     return { pads: state.pads.find(pad => pad.key === ownProps.padKey) }
 }
 export default connect(
-    mapStateToProps
+    mapStateToProps,
+    { selectPad }
     
 )(PadDetail);
 

@@ -48,6 +48,12 @@ const rightEye = eyesG
         .attr('cx', eyeSpacing)
     // .attr('cy', eyeYOffset)
 
+rightEye
+    .transition().duration(2000)
+        .attr('r', eyeRadius-20)
+    .transition().duration(2000)
+        .attr('r', eyeRadius)
+
 const eyeBrowsG = eyesG
     .append('g')
         .attr('transform', `translate(0,${eyeYOffset})`);
@@ -88,4 +94,32 @@ const mouth = g
             startAngle: Math.PI / 2, // 
             endAngle: Math.PI *3 / 2 // ends angle 
 
-        }));
+}));
+
+// Ear
+const leftEar = g
+    .append('path')
+        .attr('d', d3.arc()({
+            innerRadius: 80,
+            outerRadius: 50,
+            startAngle: 0, // 
+            endAngle: Math.PI // ends angle
+    
+        }))
+        .attr('transform', `translate(${height/2-30}, 10)`)
+        .attr('fill', 'orange')
+
+const rightEar = g
+    .append('path')
+    .attr('d', d3.arc()({
+        innerRadius: 80,
+        outerRadius: 50,
+        startAngle: Math.PI, // 
+        endAngle: Math.PI*2 // ends angle
+
+    }))
+    .attr('transform', `translate(${-height / 2 + 30}, 10)`)
+    .attr('fill', 'orange')
+
+
+    

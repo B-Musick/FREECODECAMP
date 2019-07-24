@@ -21,6 +21,7 @@ const drumListReducer = () => {
 
 const selectedPadReducer = (selectedPad = null, action) => {
     if (action.type === 'PAD_SELECTED') {
+        document.getElementById(action.payload).play();
         return action.payload;
     }
 
