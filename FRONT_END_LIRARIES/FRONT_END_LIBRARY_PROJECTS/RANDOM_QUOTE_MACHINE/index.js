@@ -6,7 +6,8 @@ const quotes = [
     { author: 'Plato', quote: 'The greatest wealth is to live content with little.' },
     { author: 'Nelson Mandela', quote: 'It always seems impossible until it’s done.'},
     { author: 'Malcom X', quote: 'A man who stands for nothing will fall for anything.' },
-    { author: 'Julius Ceasar', quote: 'I came, I saw, I conquered.'}
+    { author: 'Julius Ceasar', quote: 'I came, I saw, I conquered.'},
+    { author: 'Bobby Tarantino', quote: 'What will they write upon my grave? "A free man, born as a king, who died as a slave."'}
 ]
 
 // Selectors for html elements by id
