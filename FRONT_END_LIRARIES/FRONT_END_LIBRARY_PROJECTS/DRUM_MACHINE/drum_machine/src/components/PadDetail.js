@@ -11,7 +11,7 @@ class PadDetail extends React.Component {
         }else{
             return (
                 // Each individual drum-pad has the class 'drum-pad'
-                <div className="drum-pad">
+                <div className="drum-pad" id={`pad=${pad.key}`}>
                     {/* Each should have id describing audio, inner text with key 
             The src = thisKey letter passed in*/}
                     {pad.padKey}
