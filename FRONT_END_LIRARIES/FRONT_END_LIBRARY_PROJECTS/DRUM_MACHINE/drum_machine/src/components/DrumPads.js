@@ -7,17 +7,25 @@ import PadDetail from './PadDetail';
 
 class DrumPads extends React.Component {
     
-    handleKeyDown(e){
-        document.getElementById(e.key.toUpperCase()).play();   
+    handleKeyDown(e, keyObject){
+        document.getElementById(e.key.toUpperCase()).play();
+        // Display something to the page (User Stor)
+       
+ 
+        document.getElementById('display').textContent = keyObject.displayText;   
     }
-    
     componentDidMount(){
+        
         // Allows you to handle key events
         document.addEventListener('keydown', (e)=>{
+            
+            // Find the currently selected pad object
+            let selectedPad = this.props.pads.find(pad => pad.key === e.key.toUpperCase());
             // Have to make sure the button your pressing is one of the defined keys
             // otherwise get an error
-            if(this.props.pads.find(pad=>pad.key===e.key.toUpperCase())){
-                this.handleKeyDown(e)
+            if(selectedPad){
+                // Pass in the object so we can get the text to display on screen
+                this.handleKeyDown(e,selectedPad)
             }
         })
     }
@@ -32,17 +40,19 @@ class DrumPads extends React.Component {
             // Loop through list of pad objects
             count++;
             return (
-  
-                <div className={"col-"+count}>
-                    <button
-                        // This will select the beat to play in the reducer using event handler
-                        onClick={() => this.props.selectPad(pad.key)}
-    
-                    >
+                <a className={"pad col-" + count}
+                    // This will select the beat to play in the reducer using event handler
+                    onClick={() => this.props.selectPad(pad.key)}
+
+                >  
+                    <div className="column-anchor">
+
                         
                         <PadDetail padKey={pad.key} />
-                    </button>
+                    
                 </div>
+                </a>
+                
 
             )
            
@@ -52,8 +62,9 @@ class DrumPads extends React.Component {
     render() {
         return (
             // Print out the whole list
-            <div id="display">
+            <div id="list-display">
                 {this.renderList()}
+                <p id="display"></p>
             </div>
         )
     }
