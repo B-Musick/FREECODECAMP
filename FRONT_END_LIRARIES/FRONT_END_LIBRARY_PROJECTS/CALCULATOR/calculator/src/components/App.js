@@ -28,7 +28,8 @@ class App extends React.Component {
         ]
     }
 
-    onInputSubmit = (value) =>{
+
+    onButtonClick = (value) =>{
         // This will take the value and operation and attach it to an array
         this.setState(prevState =>({
             items: [...prevState,value]
@@ -40,8 +41,8 @@ class App extends React.Component {
                 {/* Pass in onSubmit method to item input to return input from
                 CalcInput which will take the value in passed up from the CalcInput 
                 child component*/}
-                <CalcInput onSubmit={this.onInputSubmit}/>
-                <Buttons buttons={this.state.buttons}/> 
+                {/* <CalcInput onSubmit={this.onInputSubmit}/> */}
+                <Buttons onClick={this.onButtonClick} buttons={this.state.buttons}/> 
                 
             </div>
 

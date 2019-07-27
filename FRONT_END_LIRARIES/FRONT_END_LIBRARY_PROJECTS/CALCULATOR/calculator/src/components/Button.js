@@ -1,14 +1,29 @@
 import React from 'react';
 
-const Button = (props) => {
+class Button extends React.Component{
+    state = {}
     // Receives props from mapping of the buttons in calcDisplay method 
     // of Buttons Component which gets its state from App Component
-    return (
-        <div>
-            <a id={props.button.id}>{props.button.val}</a>
-        </div>
+
+    onButtonClick = () =>{
+        console.log(this.props.button.val)
+        this.props.onClick(this.props.button.val)
+    }
+
+    render(){
         
-    )
+        return (
+            
+            <div>
+                <a
+                    onClick={this.onButtonClick}
+                    id={this.props.button.id}>{this.props.button.val}
+                </a>
+            </div>
+
+        )
+    }
+
 }
 
 export default Button;
