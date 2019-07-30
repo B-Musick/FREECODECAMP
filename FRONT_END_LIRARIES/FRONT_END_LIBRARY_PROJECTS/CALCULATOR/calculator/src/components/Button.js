@@ -6,8 +6,8 @@ class Button extends React.Component{
     // of Buttons Component which gets its state from App Component
 
     onButtonClick = () =>{
-        console.log(this.props.button.val)
-        this.props.onClick(this.props.button.val)
+        // This will send the value and id of the selected button to Buttons Component
+        this.props.onClick(this.props.button.val, this.props.button.id)
     }
 
     render(){
@@ -15,6 +15,7 @@ class Button extends React.Component{
         return (
             
             <div>
+                {/* Return a clickable button with associated id and value */}
                 <a
                     onClick={this.onButtonClick}
                     id={this.props.button.id}>{this.props.button.val}
