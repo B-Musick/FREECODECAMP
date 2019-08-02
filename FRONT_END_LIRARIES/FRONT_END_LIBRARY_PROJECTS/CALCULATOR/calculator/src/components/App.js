@@ -9,12 +9,13 @@ class App extends React.Component {
         operations:[],
         total: 0,
         operators: { 
-            '+': (x, y) => { return x + y },
-            '-': (x, y) => { return x - y },
-            '*': (x, y) => { return x * y },
-            '/': (x, y) => { return x / y },
+            '+': (x, y) => x + y ,
+            '-': (x, y) => x - y ,
+            '*': (x, y) => x * y ,
+            '/': (x, y) => x / y ,
             
-        }
+        },
+        nextValNegative: false // Used to set value to negative
 
     }
 
@@ -22,7 +23,43 @@ class App extends React.Component {
         let operationsState = this.state.operations;
        // Gets passed the value and id from the Button component when clicked (passed through Buttons)
        
-       if(id==="clear"){
+       
+       if(id === 'equals'){
+
+        //    Set the initial value of grandTotal to the first value in array
+        var grandTotal = operationsState[0] ? operationsState[0] : 0; // Holds the final total
+        var currentOperator = ""; // holds the current operator
+        
+        // If the equals button is pressed
+        for(let i=1;i<operationsState.length;i++){
+            // Loop through all the operations/numbers
+            // Dont include the last value since the equals sign
+            if(typeof operationsState[i]==='string'){
+                // Set the currentOperator
+                currentOperator = operationsState[i];
+                console.log(currentOperator)
+            }else{
+                // Take the grandtotal, apply it as 'x' and the current number from the array as 'y'
+                // it will perform the associated operation (currentOperator) that was between them
+                
+                grandTotal = this.state.operators[currentOperator](grandTotal,operationsState[i]);
+                // Set this value to the state (need to await otherwise doesnt get 
+                // finished calculating quick enough)
+                
+                
+            }
+            console.log(grandTotal);
+
+        }
+        await this.setState(prevState => ({
+                // Add equals sign to the end of the array, as well as total
+                // Want it to be printed to 'Display' in the CalcDisplay
+                total: grandTotal,
+                operations: [...prevState.operations, value, grandTotal]
+            }))
+
+       }
+       else if(id==="clear"){
             // If person presses 'CE' then there are no operations
             await this.setState(
                 {operations:[]}
@@ -32,18 +69,39 @@ class App extends React.Component {
             // If the current value is an operator, and the last value put into 
             // the operations array is an operator, use the current one
             console.log('replacing operator')
-            
-            await this.setState(prevState => ({
-                operations: [...prevState.operations.pop(), value]
-            }))
+            if(value==='-'){
+                
+                await this.setState({
+                    // If it is a negative then add this to the next value, let state know
+                    nextValNegative: true
+                })
+                
+            }else{
+                await this.setState(prevState => ({
+                // Splice out last operator
+                operations: [...prevState.operations.splice(prevState.length-1,1), value]
+                }))
+            }
+
+            console.log(this.state.operations+" operations")
         }else if(!(operationsState[operationsState.length-1]==='string' && value===0) &&
             !(operationsState.length===0 && value===0)){
                 
             // If the first number is not going to be 0 then
             // This will add the operations to the array if valid
-            await this.setState(prevState => ({
-                operations: [...prevState.operations, value]
-            }))
+            if(this.state.nextValNegative){
+                // If this is supposed to be a negative value, set it as such
+                await this.setState(prevState => ({
+                     operations: [...prevState.operations, -value],
+                     nextValNegative:false
+                 }))
+                 console.log(this.state.operations)
+            }else{
+                await this.setState(prevState => ({
+                     operations: [...prevState.operations, value]
+                }))
+            }
+
         } 
     }
 
