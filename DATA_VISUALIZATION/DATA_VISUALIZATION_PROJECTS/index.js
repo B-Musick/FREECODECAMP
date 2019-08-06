@@ -54,18 +54,26 @@ req.onload = () => {
     const barWidth = 3;
 
     svg.selectAll('rect')
-        .data(dataMap)
+        .data(dataset)
         .enter()
         .append('rect')
-            .attr('data-date', d => xScale(d[0])+"")
-            .attr('data-gdp', d => yScale((d[1]))+"")
+            .attr('data-date', d => d[0]+"") // Needs to match date on x-axis
+            .attr('data-gdp', d => d[1]+"") // Needs to match gdp of y-axis
             .attr('width',barWidth+"") // Width of bars
             .attr('height',d=>height-yScale(d[1])-padding) // Height is the height - yScale value
             .attr('class','bar')
-            .attr('x', (d,i) => xScale(d[0])+"") // Location of bars on x-axis
+            // Need attribute 'x' to show date in form '2017-01-02'
+            .attr('x', (d, i) => xScale(new Date(...d[0].match(/\d+/g)))+"") // Location of bars on x-axis
             .attr('y', d => yScale((d[1]))+padding + "") // Makes sure bars arent above x-axis
             .attr("transform",`translate(0,${-padding})`)
             .style('fill','black')
+            // Tooltip
+        .append('title')
+            .attr('id', 'tooltip')
+            .attr('data-date', d => (d[0])) // Needs to match date on x-axis
+            .text(d => d[0]+" the GDP was "+d[1]+".")
+
+
 
     svg.append('g')
         // Define x,y coordinates translation from the left of screen and from top of screen 
@@ -79,6 +87,7 @@ req.onload = () => {
         .attr('transform', "translate(" + (padding) + ", 0)") // translate from svg left edge and y coordinate from top of screen
         .call(yAxis) // Call function x-axis on elements of selection 'g'
         .attr('id', 'y-axis');
+
     svg.style('background-color', 'lightblue');
 
 
