@@ -53,6 +53,14 @@ req.onload = () => {
 
     const barWidth = 3;
 
+    // Tooltip
+    const tooltip = d3
+        .select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .attr("id", "tooltip")
+        .style("opacity", 0);
+
     svg.selectAll('rect')
         .data(dataset)
         .enter()
@@ -66,14 +74,28 @@ req.onload = () => {
             .attr('x', (d, i) => xScale(new Date(...d[0].match(/\d+/g)))+"") // Location of bars on x-axis
             .attr('y', d => yScale((d[1]))+padding + "") // Makes sure bars arent above x-axis
             .attr("transform",`translate(0,${-padding})`)
-            .style('fill','black')
+            .style('fill','#4aa89c')
             // Tooltip
-        .append('title')
-            .attr('id', 'tooltip')
-            .attr('data-date', d => (d[0])) // Needs to match date on x-axis
-            .text(d => d[0]+" the GDP was "+d[1]+".")
-
-
+            .on("mouseover", function (d, i) {
+                var colorChange = d3.select(this);
+                colorChange.style("fill", "a8eddf")
+                tooltip.style("opacity", 0.9);
+                tooltip.attr("id", "tooltip")
+                tooltip.style("fill", "#a8eddf")
+                tooltip.attr("data-date", d[0])
+                tooltip.html(d[0])
+                    // This will give the coordinates where mouseevent is and put tooltip there
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY+ "px")
+                    .style('font-size','4')
+            })
+            .on("mouseout", function () {
+                d3.select(this)
+                    .transition()
+                    .duration(500)
+                    .style("fill", "#4aa89c");
+                tooltip.style("opacity", 0);
+            })
 
     svg.append('g')
         // Define x,y coordinates translation from the left of screen and from top of screen 
@@ -88,7 +110,7 @@ req.onload = () => {
         .call(yAxis) // Call function x-axis on elements of selection 'g'
         .attr('id', 'y-axis');
 
-    svg.style('background-color', 'lightblue');
+    svg.style('background-color', '#eaebe4');
 
 
 
