@@ -53,6 +53,11 @@ req.onload = () => {
 
     const barWidth = 3;
 
+    // Tooltip
+    let tooltip = d3
+        .select("body")
+        .append("div")
+        .attr("id", "tooltip")
 
     svg.selectAll('rect')
         .data(dataset)
@@ -69,27 +74,25 @@ req.onload = () => {
             .attr("transform",`translate(0,${-padding})`)
             .style('fill','#4aa89c')
             // Tooltip
-                .on("mouseover", function (d, i) {
-                    var barColor = d3.select(this);
-                    barColor.style("fill", "a8eddf")
-                    d3.select(this).append('title')
-                        .style("opacity", 0.9)
-                        .attr("id", "tooltip")
-                        .style("fill", "#a8eddf")
-                        .attr("data-date", d[0])
-                        .html(d[0])
-                            // This will give the coordinates where mouseevent is and put tooltip there
-                            .style("left", d3.event.pageX + "px")
-                            .style("top", d3.event.pageY+ "px")
-                            .style('font-size','4')
-                })
-                .on("mouseout", function () {
-                    d3.select(this)
-                        .transition()
-                        .duration(500)
-                        .style("fill", "#4aa89c")
-                        .style("opacity", 0);
-                })
+            .on("mouseover", function (d, i) {
+                d3.select(this).style("fill", "a8eddf");
+                tooltip.attr("id", "tooltip")
+                tooltip.style("fill", "#a8eddf")
+                tooltip.attr("data-date", d[0])
+                tooltip.style('opacity', 1)
+                tooltip.html("In "+d[0] + " GDP was " + d[1])
+                    // This will give the coordinates where mouseevent is and put tooltip there
+                    .style("left", (i * barWidth)+padding + "px")
+                    .style("top", height - (2*padding)  + "px")
+
+            })
+            .on("mouseout", function () {
+                d3.select(this)
+                    .transition()
+                    .duration(400)
+                    .style("fill", "#4aa89c");
+                tooltip.style("opacity", 0);
+            })
 
     svg.append('g')
         // Define x,y coordinates translation from the left of screen and from top of screen 
