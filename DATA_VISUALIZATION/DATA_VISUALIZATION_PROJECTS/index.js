@@ -9,6 +9,7 @@ req.onload = () => {
     // dataset will be an array of arrays, the first value being the date, second the gdp
     let dataset = []
 
+    // Get width and heights values
     const width = +(svg.attr('width'));
     const height = +(svg.attr('height'));
     const padding = 60;
@@ -20,17 +21,12 @@ req.onload = () => {
         
     })
     
-    
+    // Maps a new array with the dates in proper format, and the original gdp
     let dataMap = dataset.map(data=>{
         return [new Date(...data[0].match(/\d+/g)),data[1]];
     })
-    console.log(dataMap)
-    //console.log(dataset[0][0].match(/\d+/g))
-    console.log(dataMap)
-    // Set the xScale using date values, map the domain to the range to fit the page
-    console.log(dataMap[0][1])
-    console.log(dataMap[dataMap.length - 1][1])
 
+    // Set the xScale using date values, map the domain to the range to fit the page
     let xScale = d3.scaleTime()
         // Take the domain 'dates' and map them to the x-axis
         .domain([dataMap[0][0], dataMap[dataMap.length-1][0]]) // (first(earliest) date, last(latest) date)
@@ -43,7 +39,6 @@ req.onload = () => {
         .domain([0, d3.max(dataMap, (d) =>d[1] )])
         /* y-axis starts at bottom of screen so need 
          0 ------> height-padding(bottom), then d3.max(dataMap, d =>{d[1]})]) -----> padding (top) */
-        
         .range([height-padding, padding]);
 
     console.log(yScale('1000'))
@@ -51,9 +46,10 @@ req.onload = () => {
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
 
+    // Holds value for the bar chart bars width
     const barWidth = 3;
 
-    // Tooltip
+    // Tooltip body
     let tooltip = d3
         .select("body")
         .append("div")
@@ -70,6 +66,7 @@ req.onload = () => {
             .attr('class','bar')
             // Need attribute 'x' to show date in form '2017-01-02'
             .attr('x', (d, i) => xScale(new Date(...d[0].match(/\d+/g)))+"") // Location of bars on x-axis
+            // Use yScale to convert value from JSON data to that of the screen conversion 
             .attr('y', d => yScale((d[1]))+padding + "") // Makes sure bars arent above x-axis
             .attr("transform",`translate(0,${-padding})`)
             .style('fill','#4aa89c')
@@ -87,6 +84,7 @@ req.onload = () => {
 
             })
             .on("mouseout", function () {
+                // When mouse stops hovering a specific bar
                 d3.select(this)
                     .transition()
                     .duration(400)
@@ -115,18 +113,8 @@ req.onload = () => {
 
 
 };
-console.log(req.response);
+
 req.send();
 
-// ${document}.ready(()=>{
-//     var api ='https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json';
-
-//     $.getJSON(api,(data)={
-//         alert(data.)
-//     })
-// })
-// let response = await fetch('https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json');
-// let data = await response.json();
-// console.log(data);
 
 
