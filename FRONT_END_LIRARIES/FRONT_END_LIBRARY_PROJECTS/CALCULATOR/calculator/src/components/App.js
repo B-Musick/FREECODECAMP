@@ -24,7 +24,7 @@ class App extends React.Component {
     }
 
     onButtonClick = async (value,id) =>{
-        let operationsState = this.state.operations;
+        let operationsState = this.state.operations; // Holds all the current operations
        // Gets passed the value and id from the Button component when clicked (passed through Buttons)
        if (id === 'decimal') {
             //If decimal is pressed, then add decimal to the last value in array
@@ -64,22 +64,26 @@ class App extends React.Component {
            
             if(this.state.decimalVal[this.state.decimalVal.length-1]==='.'){
                 
-                // If there is no value added after the decimal, then add 0
+                // If there is no value added after the decimal, then add 0 so its not ('3.')
                 await this.setState(prevState => ({
-                    decimalVal: parseFloat(prevState.decimalVal).toFixed(1)
+                    decimalVal: prevState.decimalVal+"0"
                 }));
+                console.log('set decimal');
             }
            
             if(this.state.previousDecimal){
-                // If the decimal was added to a value already in the array
+                // If the decimal was added to a value already in the array (ie if "1." is input, 
+                // need to remove and put whole new this.state.decimalVal in)
                 // we need to remove the previous one and add the new value
                 // As well need to set the booleans to false
                 let newArray = [...this.state.operations];
                 // Need to splice out the old operator, then add in the new one
                 // Remember that the following would return the removed item if saved to variable
                 // so dont want to save it
-                newArray.splice(newArray.length - 1, 1, this.state.decimalVal);
+                console.log(newArray);
 
+                newArray.splice(newArray.length - 1, 1, this.state.decimalVal);
+                console.log(newArray);
 
                 await this.setState(prevState => ({
                     // 
