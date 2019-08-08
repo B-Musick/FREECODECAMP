@@ -46,7 +46,9 @@ class Timer extends React.Component{
                 
                 
             }
-            if(this.state.startTimer){
+            else if(this.state.startTimer){
+                // Make sure else if statement, otherwise an error arises where
+                // clock decreases a second after 00:00 occurs, so doesnt start at right number
                 // Prevents decrease in value after stop or reset pressed
                 this.props.decSec();
             }
@@ -96,13 +98,14 @@ class Timer extends React.Component{
         // Also determines which clock is set
         this.props.resTime();
         this.setState({
-            startTimer: false
+            startTimer: false, // Stop timer
+            onBreak: false // Switch label back to SESSION
         })
     }
   
     setTimerLabel=()=>{
         // Function to set timer label depending on if on break or in session
-        if(this.props.onBreak){
+        if(this.state.onBreak){
             return "BREAK"
         }else{
             return "SESSION"
