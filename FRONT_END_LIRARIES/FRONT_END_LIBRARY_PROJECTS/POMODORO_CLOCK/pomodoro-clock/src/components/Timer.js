@@ -14,20 +14,26 @@ class Timer extends React.Component{
         
         }))
         console.log(this.state.startTimer)
-       
+        let clockStart;
         let clock = () =>{
-            
-            console.log('fart');
-        }
-        let clockStart = setInterval(clock, 1000);
-        
-        if(!this.state.startTimer){
-            clearInterval(clockStart);
-        }else{
-            
-        }
+            // Will hold the logic controlling the clock countdown
+            // this.setState({
 
+            // })
+            
+            if (!this.state.startTimer) {
+                clearInterval(clockStart);
+            }
+            
+        }
+        
+        if(this.state.startTimer){
+            // If the start button is 'on', then start the interval which 
+            // calls the clock method every second
+            clockStart = setInterval(clock, 1000);
+        }
     }
+
     
     render(){
         return(
