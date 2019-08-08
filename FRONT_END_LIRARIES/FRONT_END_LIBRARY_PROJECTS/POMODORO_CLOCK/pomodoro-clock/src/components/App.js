@@ -5,47 +5,71 @@ import Session from './Session';
 import Timer from './Timer';
 
 class App extends React.Component{
+    sessionTime = 25;
+    break = 5;
     state={
-        break: 5, // Holds the break time
-        session: 25, // Holds the session time
-        minutes: 25,
+        break: this.break, // Holds the break time
+        session: this.sessionTime, // Holds the session time
+        minutes: this.sessionTime,
         seconds: 60
     }
     onBreakIncrement= () =>{
         // This method is called from Break component when the id="break-increment"
         // button is pressed.
-        this.setState(prevState=>({
-            // Cant just use this.state.break++ since you dont want to change the original
-            // state
-            break: prevState.break+=1
-        }))
+        if(this.state.break < 60){
+            // Only 60 minutes in an hour
+            this.setState(prevState => ({
+                // Cant just use this.state.break++ since you dont want to change the original
+                // state
+                break: prevState.break += 1
+            }))
+        }
+
     }
     onBreakDecrement = () => {
         // This method is called from Break component when the id="break-increment"
         // button is pressed.
-        this.setState(prevState => ({
-            // Cant just use this.state.session++ since you dont want to change the original
-            // state
-            break: prevState.break -= 1
-        }))
+        if (this.state.break > 1) {
+            // Cant go less than 1
+            this.setState(prevState => ({
+                // Cant just use this.state.session++ since you dont want to change the original
+                // state
+                break: prevState.break -= 1
+            }))
+        }
+
     }
     onSessionIncrement = () => {
         // This method is called from Session component when the id="session-increment"
         // button is pressed.
-        this.setState(prevState => ({
-            // Cant just use this.state.session++ since you dont want to change the original
-            // state
-            session: prevState.session += 1
-        }))
+        if(this.state.session<60){
+            this.setState(prevState => ({
+                // Cant just use this.state.session++ since you dont want to change the original
+                // state. Need to change the minutes as well to match
+                // Reset the clock
+                session: prevState.session += 1,
+                minutes: prevState.session,
+                seconds: 60
+            }))
+        }
+
     }
     onSessionDecrement = () => {
         // This method is called from Break component when the id="session-increment"
         // button is pressed.
-        this.setState(prevState => ({
-            // Cant just use this.state.session++ since you dont want to change the original
-            // state
-            session: prevState.session -= 1
-        }))
+        if(this.state.session>1){
+            // Cant go less than 1
+            this.setState(prevState => ({
+                // Cant just use this.state.session++ since you dont want to change the original
+                // state. Need to change the minutes as well to match
+                // Resets the clock as well
+                session: prevState.session -= 1,
+                minutes: prevState.session, // Dont increment since session gets decremented just before and must match
+                seconds: 60
+
+            }));
+        }
+
     }
 
     decreaseMinutes = async () =>{
@@ -72,6 +96,19 @@ class App extends React.Component{
         })
     }
 
+    resetTime = async() =>{
+        // Passed to Timer component
+        // When 'Reset' button in Timer is clicked, calls this method
+        // Resets everything back to normal
+        await this.setState({
+            seconds: 60,
+            session: this.sessionTime,
+            minutes: this.sessionTime,
+            break: 5
+
+        })
+    }
+
     render(){
         return (
             <div>
@@ -80,7 +117,7 @@ class App extends React.Component{
                 to increment and will increment the Apps state */}
                 <Break onBreakIncrement={this.onBreakIncrement} onBreakDecrement={this.onBreakDecrement} break={this.state.break} />
                 <Session onSessionIncrement={this.onSessionIncrement} onSessionDecrement={this.onSessionDecrement} session={this.state.session} />
-                <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} resSec={this.resetSeconds} minutes={this.state.minutes} seconds={this.state.seconds}/>
+                <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} resSec={this.resetSeconds} resTime={this.resetTime} minutes={this.state.minutes} seconds={this.state.seconds}/>
 
             </div>
             
