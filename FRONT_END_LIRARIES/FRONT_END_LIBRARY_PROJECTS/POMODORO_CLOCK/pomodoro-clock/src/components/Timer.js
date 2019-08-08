@@ -17,13 +17,27 @@ class Timer extends React.Component{
         let clockStart;
         let clock = () =>{
             // Will hold the logic controlling the clock countdown
-            // this.setState({
-
-            // })
-            
             if (!this.state.startTimer) {
+                // If timer turned off, stop setInterval from running
                 clearInterval(clockStart);
             }
+            // Call the method passed in from App component, which will tell this
+            // method in the App to decrease 'seconds' state value each time the
+            // setInterval() method runs (clockStart). The 'seconds' from App is
+            // passed to this Component and can be access this.props.seconds 
+            this.props.decSec();
+            if(this.props.seconds === 0){
+                // Reset the 'seconds' App state to 60
+                this.props.resSec();
+            }
+            if(this.props.seconds===59){
+                // If the seconds is 59, this means minutes val has to decrease by 1
+                // Call the method, which is called in App component --> changes
+                // 'minutes' state in App --> passes info back to Timer component
+                this.props.decMin();
+            }
+            
+
             
         }
         
@@ -34,14 +48,20 @@ class Timer extends React.Component{
         }
     }
 
-    
+    renderTime=()=>{
+
+        // Used to print out the time mm:ss
+        let sec = this.props.seconds===60 ? "00":this.props.seconds+"";
+        let min = this.props.minutes+"";
+        return min+":"+sec;
+    }
     render(){
         return(
             <div className="timer-container">
                 {/* Title */}
                 <div id="timer-label">SESSION</div>
                 {/* Timer */}
-                <div id="time-left"></div>
+                <div id="time-left">{this.renderTime()}</div>
                 <button id="start_stop" onClick={this.timer}>Start</button>
                 <button id="reset">Reset</button>
             </div>

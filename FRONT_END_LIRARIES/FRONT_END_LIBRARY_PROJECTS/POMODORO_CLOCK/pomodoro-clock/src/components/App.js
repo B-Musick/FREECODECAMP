@@ -48,19 +48,29 @@ class App extends React.Component{
         }))
     }
 
-    decreaseMinutes = () =>{
+    decreaseMinutes = async () =>{
+        // Passed to the Timer component
         // This will decrement when 60 seconds has gone by
-        this.setState(prevState=>({
+        await this.setState(prevState=>({
             minutes: prevState.minutes-=1
         }))
     } 
 
-    decreaseSeconds = () => {
+    decreaseSeconds = async() => {
         // This will decrement when setTimeout has gone through 1 second has gone by
-        this.setState(prevState => ({
-            minutes: prevState.seconds -= 1
+        // Passed to the Timer component
+        await this.setState(prevState => ({
+            seconds: prevState.seconds -= 1
         }))
     } 
+
+    resetSeconds = async() =>{
+        // This will be passed to the Timer component
+        // Will reset seconds back to 60 once reaches 0
+        await this.setState({
+            seconds: 60
+        })
+    }
 
     render(){
         return (
@@ -70,7 +80,7 @@ class App extends React.Component{
                 to increment and will increment the Apps state */}
                 <Break onBreakIncrement={this.onBreakIncrement} onBreakDecrement={this.onBreakDecrement} break={this.state.break} />
                 <Session onSessionIncrement={this.onSessionIncrement} onSessionDecrement={this.onSessionDecrement} session={this.state.session} />
-                <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} minutes={this.state.minutes} seconds={this.state.seconds}/>
+                <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} resSec={this.resetSeconds} minutes={this.state.minutes} seconds={this.state.seconds}/>
 
             </div>
             
