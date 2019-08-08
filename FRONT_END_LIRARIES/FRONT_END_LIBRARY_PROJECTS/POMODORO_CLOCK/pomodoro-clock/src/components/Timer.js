@@ -38,11 +38,12 @@ class Timer extends React.Component{
                     inSession: !prevState.inSession
                 }))
                 // clearInterval(clockStart);
-                
+                this.beep();
                 // This will switch the clock from either break to session or vice versa
                 // Doesnt stop the clock
                 // call resetCurrentTime in App component
-                this.props.resCurrentTime(this.state.onBreak)
+                this.props.resCurrentTime(this.state.onBreak);
+                
                 
                 
             }
@@ -101,6 +102,11 @@ class Timer extends React.Component{
             startTimer: false, // Stop timer
             onBreak: false // Switch label back to SESSION
         })
+        // Pause the sound
+        document.getElementById('beep').pause();
+        // To reload the sound (so it start from beginning next call)
+        document.getElementById('beep').load();
+
     }
   
     setTimerLabel=()=>{
@@ -111,11 +117,19 @@ class Timer extends React.Component{
             return "SESSION"
         }
     }
+
+    beep=()=>{
+        // Plays the beep when timer reaches 0 (called by timer method)
+        document.getElementById('beep').play();
+    }
     render(){
         return(
             <div className="timer-container">
                 {/* Title */}
-                <div id="timer-label">{this.setTimerLabel()}</div>
+                <div id="timer-label">
+                    <audio id="beep" preload="auto" src="https://goo.gl/65cBl1"></audio>
+                    {this.setTimerLabel()}
+                </div>
                 {/* Timer */}
                 <div id="time-left">{this.renderTime()}</div>
                 <button id="start_stop" onClick={this.timer}>Start</button>
