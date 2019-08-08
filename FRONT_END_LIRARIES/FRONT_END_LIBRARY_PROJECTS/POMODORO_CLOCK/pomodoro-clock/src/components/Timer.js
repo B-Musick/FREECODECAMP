@@ -2,7 +2,10 @@ import React from 'react';
 
 class Timer extends React.Component{
     state={
-        startTimer: false // Determines if timer should start
+        startTimer: false, // Determines if timer should start
+        inSession: true, // Determines if on session
+        onBreak: false, // Determines if on break
+        
     }
 
     timer= async()=>{
@@ -27,10 +30,21 @@ class Timer extends React.Component{
             // passed to this Component and can be access this.props.seconds 
             if (this.props.minutes === 0 && this.props.seconds === 60) {
                 // If the timer has reached 0, then stop it
-                this.setState({
-                    startTimer: false
-                })
-                clearInterval(clockStart);
+                await this.setState(prevState=>({
+                    // If reaches 0 then switch the clock to the other (break to session 
+                    // or vice versa)
+                    
+                    onBreak: !prevState.onBreak,
+                    inSession: !prevState.inSession
+                }))
+                // clearInterval(clockStart);
+                
+                // This will switch the clock from either break to session or vice versa
+                // Doesnt stop the clock
+                // call resetCurrentTime in App component
+                this.props.resCurrentTime(this.state.onBreak)
+                
+                
             }
             if(this.state.startTimer){
                 // Prevents decrease in value after stop or reset pressed
@@ -72,24 +86,33 @@ class Timer extends React.Component{
         }else{
             sec = "0"+this.props.seconds;
         }
-        
+        // Prints either 0 before number if <9 or not
         let min = this.props.minutes>9 ? this.props.minutes+"": "0"+this.props.minutes;
         return min+":"+sec;
     }
 
     resetTime=()=>{
         // When reset button pressed, reset time and stop clock
+        // Also determines which clock is set
         this.props.resTime();
         this.setState({
             startTimer: false
         })
     }
-
+  
+    setTimerLabel=()=>{
+        // Function to set timer label depending on if on break or in session
+        if(this.props.onBreak){
+            return "BREAK"
+        }else{
+            return "SESSION"
+        }
+    }
     render(){
         return(
             <div className="timer-container">
                 {/* Title */}
-                <div id="timer-label">SESSION</div>
+                <div id="timer-label">{this.setTimerLabel()}</div>
                 {/* Timer */}
                 <div id="time-left">{this.renderTime()}</div>
                 <button id="start_stop" onClick={this.timer}>Start</button>

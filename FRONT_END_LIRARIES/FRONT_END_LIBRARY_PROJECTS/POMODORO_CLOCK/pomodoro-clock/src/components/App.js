@@ -6,12 +6,13 @@ import Timer from './Timer';
 
 class App extends React.Component{
     sessionTime = 25;
-    break = 5;
+    breakTime = 5;
     state={
-        break: this.break, // Holds the break time
+        break: this.breakTime, // Holds the break time
         session: this.sessionTime, // Holds the session time
         minutes: this.sessionTime,
-        seconds: 60
+        seconds: 60,
+        timerStart: this.props.sessionTime // What current timer is at based on if onBreak or not
     }
     onBreakIncrement= () =>{
         // This method is called from Break component when the id="break-increment"
@@ -49,6 +50,7 @@ class App extends React.Component{
                 // Reset the clock
                 session: prevState.session += 1,
                 minutes: prevState.session,
+                timerStart: prevState.session,
                 seconds: 60
             }))
         }
@@ -65,6 +67,7 @@ class App extends React.Component{
                 // Resets the clock as well
                 session: prevState.session -= 1,
                 minutes: prevState.session, // Dont increment since session gets decremented just before and must match
+                timerStart: prevState.session,
                 seconds: 60
 
             }));
@@ -96,17 +99,43 @@ class App extends React.Component{
         })
     }
 
-    resetTime = async() =>{
+    resetTime = async () =>{
         // Passed to Timer component
         // When 'Reset' button in Timer is clicked, calls this method
         // Resets everything back to normal
-        await this.setState({
-            seconds: 60,
-            session: this.sessionTime,
-            minutes: this.sessionTime,
-            break: 5
+        
+            await this.setState({
+                seconds: 60,
+                session: this.sessionTime,
+                break: this.breakTime,
+                minutes: this.sessionTime, // set clock to time
+            })
 
-        })
+    }
+
+    resetCurrentTime = async (onBreak) => {
+        // This is called when continuing from current iterations
+        // Called from Timer component in clock method when timer reaches 00:00
+        if(onBreak){
+            // If on break
+            await this.setState(prevState=>({
+                seconds: 60,
+                session: prevState.session,
+                break: prevState.break,
+                minutes: prevState.break, // set clock to time
+                timerStart: prevState.break
+            }))
+        }else{
+            // If not on break
+            await this.setState(prevState=>({
+                seconds: 60,
+                session: prevState.session,
+                break: prevState.break,
+                minutes: prevState.session, // set clock to time
+                timerStart:prevState.session
+            }))
+        }
+
     }
 
     render(){
@@ -117,7 +146,8 @@ class App extends React.Component{
                 to increment and will increment the Apps state */}
                 <Break onBreakIncrement={this.onBreakIncrement} onBreakDecrement={this.onBreakDecrement} break={this.state.break} />
                 <Session onSessionIncrement={this.onSessionIncrement} onSessionDecrement={this.onSessionDecrement} session={this.state.session} />
-                <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} resSec={this.resetSeconds} resTime={this.resetTime} minutes={this.state.minutes} seconds={this.state.seconds}/>
+                <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} resSec={this.resetSeconds} resTime={this.resetTime} minutes={this.state.minutes} seconds={this.state.seconds} session={this.state.session}
+                breakTime={this.state.break} resCurrentTime={this.resetCurrentTime} timerStart={this.state.timerStart}/>
 
             </div>
             
