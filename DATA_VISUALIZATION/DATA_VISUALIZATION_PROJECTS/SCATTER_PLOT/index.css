@@ -1,0 +1,14 @@
+#tooltip {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  padding: 5px;
+  font: 10px Monaco;
+  color: #054d63;
+  background:#b0c7cf;
+  border: 0px;
+  border-radius: 4px;
+  pointer-events: none;
+  
+}
