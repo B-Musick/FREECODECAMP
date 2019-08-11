@@ -34,7 +34,6 @@ main = async () => {
         // Returns array of x and y value [x,y]
         let timeArray = data.Time.match(/\d+\d+/g);
         let xVal = data.Year;
-
         
         // Handle the time array of values from left and right of colon (strings) ["33","33"]
         let time = new Date();
@@ -44,12 +43,14 @@ main = async () => {
         time.setMinutes(timeArray[0]);
         time.setSeconds(timeArray[1]);
 
+        // Set the color of people who doped to dark green, who didnt to light green
+        let doping = data.Doping;
+        let color = doping ? "#054d63" : "#03fc5e";
         
-
         // Then need to create Date object for the yVal
         let yVal = time; // Wed Dec 31 1969 17:02:23 GMT-0700 (Mountain Standard Time)
         
-        return [xVal,yVal]
+        return [xVal,yVal,color]
     })
     
 
@@ -59,19 +60,37 @@ main = async () => {
     let xScale = d3.scaleLinear()
         // Take the domain 'dates' and map them to the x-axis
         .domain([d3.min(dataMap,d=>d[0]), d3.max(dataMap,d=>d[0])]) // (first(earliest) date, last(latest) date)
-        .range([padding*2, width - padding]);
+        .range([padding*2, width - padding]); // Start points 2*padding away from left and padding away from right
 
     let yScale = d3.scaleTime()
         // Take the domain 'dates' and map them to the x-axis
         .domain([d3.min(dataMap, d => d[1]), d3.max(dataMap, d => d[1])]) // (first(earliest) date, last(latest) date)
         .range([padding, height - padding]);
 
+    /*************************** SET THE AXES ******************************* */
     const xAxis = d3.axisBottom(xScale)
         // Format tick year number so 1,000 becomes 1000
         .tickFormat(d3.format("d"))
+
+    /***************************** X-AXIS *********************************** */
+    svg.append('g')
+        // Define x,y coordinates translation from the left of screen and from top of screen 
+        .attr('transform', "translate(0," + (height - padding) + ")") // translate from svg edge to bottom of screen
+        .call(xAxis) // Call function x-axis on elements of selection 'g'
+        .attr('id', 'x-axis');
+
     const yAxis = d3.axisLeft(yScale)
         // Format so number displays as mm:ss
         .tickFormat(d3.timeFormat("%M:%S"))
+
+    /***************************** Y-AXIS *********************************** */
+
+    svg.append('g')
+        // Translate will define location of y-axis by defining (x,y) translation
+        // If didnt add padding to x-coordinate, the y-axis is against the screen
+        .attr('transform', "translate(" + (padding) + ", 0)") // translate from svg left edge and y coordinate from top of screen
+        .call(yAxis) // Call function y-axis on elements of selection 'g'
+        .attr('id', 'y-axis');
 
    
     // Tooltip body
@@ -80,22 +99,23 @@ main = async () => {
         .append("div")
         .attr("id", "tooltip")
 
+    /*********** SCATTER PLOT POINTS + TOOLTIP MOUSE EVENTS ****************** */
     svg.selectAll('circle')
-        .data(dataMap)
+        .data(dataMap) // Array of data arrays -->[x,y,doping-color], loops through them
         .enter()
         .append('circle')
             .attr('data-xvalue',d=>d[0]+"")
-            .attr('cx', d => xScale(d[0]))
-            .attr('cy', d => yScale(d[1]))
+            .attr('cx', d => xScale(d[0])) // set x-axis based on year datavalue
+            .attr('cy', d => yScale(d[1])) // Set y-axis based on time data value
             .attr('data-yvalue', d => d[1] + "")
             .attr('class','dot')
-            .attr('r','5')
-            .style('fill','#054d63')
+            .attr('r','5') // Set the radius
+            .style('fill', d=>d[2]) // Set the fill which is based on if doped or not
             // Tooltip
             .on("mouseover", function (d, i) {
-                d3.select(this).style("fill", "a8eddf");
-                tooltip.attr("id", "tooltip")
-                tooltip.style("fill", "#a8eddf")
+                // When user hovers over the point
+                d3.select(this).style("fill", "a8eddf"); // Set circle color when hover
+                tooltip.attr("id", "tooltip")  
                 tooltip.attr("data-year", d[0])
                 tooltip.style('opacity', 1)
                 tooltip.html("In " + d[0] + " the riders time was " + d[1].getMinutes()+":"+d[1].getSeconds())
@@ -109,42 +129,58 @@ main = async () => {
                 d3.select(this)
                     .transition()
                     .duration(400)
-                    .style("fill", "#054d63");
+                    .style("fill", d=>{d[2]});
                 tooltip.style("opacity", 0);
             }) 
     
-    /***************************** X-AXIS *********************************** */
-    svg.append('g')
-        // Define x,y coordinates translation from the left of screen and from top of screen 
-        .attr('transform', "translate(0," + (height - padding) + ")") // translate from svg edge to bottom of screen
-        .call(xAxis) // Call function x-axis on elements of selection 'g'
-        .attr('id', 'x-axis');
-
-    /***************************** Y-AXIS *********************************** */
-
-    svg.append('g')
-        // Translate will define location of y-axis by defining (x,y) translation
-        // If didnt add padding to x-coordinate, the y-axis is against the screen
-        .attr('transform', "translate(" + (padding) + ", 0)") // translate from svg left edge and y coordinate from top of screen
-        .call(yAxis) // Call function y-axis on elements of selection 'g'
-        .attr('id', 'y-axis');
-    
+    /***************************** LEGEND *********************************** */
     let legend = svg.append('g')
         .attr('id', 'legend')
-        .append('rect')
-            .attr('x', width-(padding*4))
-            .attr('y', padding)
-            .attr('width','200px')
-            .attr('height', '110px')
-        .style('fill','#ba4138')
+    
+    // Legend box
+    legend.append('rect')
+        .attr('x', width - (padding * 4))
+        .attr('y', padding)
+        .attr('width', '200px')
+        .attr('height', '110px')
+        .style('fill', '#ba4138')
+    
+    // No doping found circle legend (light green)
+    legend.append('circle')
+        .attr('cx', width - (padding * 3.5))
+        .attr('cy', padding * 1.5)
+        .attr('r', '5')
+        .style('fill', "#03fc5e")
+    
+    // No doping found text 
+    legend.append('text')
+        .attr('x', width - (padding * 3.3))
+        .attr('y', padding * 1.57)
+        .style('color','black')
+            .text('No Doping')
+
+    // Doping found circle legend (light green)
+    legend.append('circle')
+        .attr('cx', width - (padding * 3.5))
+        .attr('cy', padding * 2)
+        .attr('r', '5')
+        .style('fill', "#054d63")
+
+    // Doping found text 
+    legend.append('text')
+        .attr('x', width - (padding * 3.3))
+        .attr('y', padding * 2.1)
+        .style('color', 'black')
+        .text('Doping')
+
+        
 
 
 
         
 }
 
-main();
-// let dataset = main();
+main(); // Start program
 
 /*
  * Doping: "Alleged drug use during 1995 due to high hematocrit levels"
@@ -156,9 +192,6 @@ main();
  * URL: "https://en.wikipedia.org/wiki/Marco_Pantani#Alleged_drug_use"
  * Year: 1995
  * */
-// const dataFunc = thisData(); 
-// let dataset = dataFunc.getData(); // Holds array of objects with data values
-
 
 /*************************** THINGS LEARNED ********************************* 
  * let time = new Date();

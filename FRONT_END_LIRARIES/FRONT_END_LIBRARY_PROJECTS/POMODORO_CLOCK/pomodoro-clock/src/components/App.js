@@ -141,15 +141,23 @@ class App extends React.Component{
     render(){
         return (
             <div>
-                <h1>Pomodoro Clock</h1>
-                {/* Pass the onBreakIncrement method so it is called when the button is pressed
-                to increment and will increment the Apps state */}
-                <Break onBreakIncrement={this.onBreakIncrement} onBreakDecrement={this.onBreakDecrement} break={this.state.break} />
-                <Session onSessionIncrement={this.onSessionIncrement} onSessionDecrement={this.onSessionDecrement} session={this.state.session} />
-                <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} resSec={this.resetSeconds} resTime={this.resetTime} minutes={this.state.minutes} seconds={this.state.seconds} session={this.state.session}
-                breakTime={this.state.break} resCurrentTime={this.resetCurrentTime} timerStart={this.state.timerStart}/>
+                <h1 class="page-title">Pomodoro Clock</h1>
+                <div class="page-container">
 
+                    {/* Pass the onBreakIncrement method so it is called when the button is pressed
+                to increment and will increment the Apps state */}
+                    <Break onBreakIncrement={this.onBreakIncrement} onBreakDecrement={this.onBreakDecrement} break={this.state.break} />
+                    <Session onSessionIncrement={this.onSessionIncrement} onSessionDecrement={this.onSessionDecrement} session={this.state.session} />
+
+
+
+                </div>
+                <div class="component-container">
+                    <Timer decMin={this.decreaseMinutes} decSec={this.decreaseSeconds} resSec={this.resetSeconds} resTime={this.resetTime} minutes={this.state.minutes} seconds={this.state.seconds} session={this.state.session}
+                        breakTime={this.state.break} resCurrentTime={this.resetCurrentTime} timerStart={this.state.timerStart} />
+                </div>
             </div>
+            
             
         )
     }

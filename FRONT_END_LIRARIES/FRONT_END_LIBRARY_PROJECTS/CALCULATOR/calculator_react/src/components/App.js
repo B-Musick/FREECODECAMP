@@ -23,6 +23,22 @@ class App extends React.Component {
 
     }
 
+    spliceInVal(val) {
+        // Splice in value to array
+        let newArray = [...this.state.operations];
+        newArray.splice(newArray.length - 1, 1, val);
+
+        this.setState({
+            operations: [...newArray]
+        })
+    }
+
+    changePrevOpState(val){
+        this.setState(prevState=>({
+            operations: [prevState.operations,val]
+        }))
+    }
+
     onButtonClick = async (value,id) =>{
         let operationsState = this.state.operations; // Holds all the current operations
        // Gets passed the value and id from the Button component when clicked (passed through Buttons)
@@ -30,6 +46,7 @@ class App extends React.Component {
             //If decimal is pressed, then add decimal to the last value in array
             if(!this.state.decimalActivated){
                 // If not already decimal actived (cant have two in a row)
+                console.log('Decimal activated')
                 if (typeof operationsState[operationsState.length - 1] === 'string' ||
                     typeof operationsState[operationsState.length - 1] === 'undefined') {
                     // If the last operation is a type of string then add 0 to the left of decimal,
@@ -39,6 +56,9 @@ class App extends React.Component {
                         decimalVal: "0."
 
                     }));
+                    console.log(
+                        'set 0 before decimal'
+                    )
 
                 } else {
                     // If the last operation was a number, then well add the decimal to that number
@@ -53,22 +73,20 @@ class App extends React.Component {
                 }
             }else{
                 // Otherwise do nothing if decimal activated already
+                console.log(
+                    "Decimal already activated"
+                )
             }
-            
-
-            console.log(this.state.decimalVal)
-
-
-        }else if (this.state.decimalActivated && typeof value ==='string'){
+        }else if (this.state.decimalActivated && typeof value ==='string' && id !== 'equals'){
         //    If this is a decimal and another operation is pressed, then add decimal to array
-           
-            if(this.state.decimalVal[this.state.decimalVal.length-1]==='.'){
+            console.log('Decimal activated and operation')
+            if(this.state.decimalVal[this.state.decimalVal.length-1] === '.'){
                 
                 // If there is no value added after the decimal, then add 0 so its not ('3.')
                 await this.setState(prevState => ({
                     decimalVal: prevState.decimalVal+"0"
                 }));
-                console.log('set decimal');
+                console.log('Set zero after decimal');
             }
            
             if(this.state.previousDecimal){
@@ -76,23 +94,21 @@ class App extends React.Component {
                 // need to remove and put whole new this.state.decimalVal in)
                 // we need to remove the previous one and add the new value
                 // As well need to set the booleans to false
-                let newArray = [...this.state.operations];
+                
                 // Need to splice out the old operator, then add in the new one
                 // Remember that the following would return the removed item if saved to variable
                 // so dont want to save it
-                console.log(newArray);
+                console.log(this.state.operations)
+                this.changePrevOpState(value);
+                
+              
 
-                newArray.splice(newArray.length - 1, 1, this.state.decimalVal);
-                console.log(newArray);
-
-                await this.setState(prevState => ({
-                    // 
+                await this.setState({
                     previousDecimal: false,
                     decimalActivated: false,
-                    operations: [...newArray, value]
+                });
 
-                }));
-                console.log(this.state.operations)
+                console.log("Now the state of operations is: "+this.state.operations)
 
             }else{
                 // If the decimal was clicked when there was no previous val, then 0 was added
@@ -106,50 +122,92 @@ class App extends React.Component {
             }
 
        }
-       else if(this.state.decimalActivated){
-           console.log('here')
+       else if (this.state.decimalActivated && id !== 'equals'){
+           console.log('Adding integer to current decimal number')
         //    If decimal is activated, need to add values to the current number
+
            await this.setState(prevState => ({
                decimalActivated: true,
-               decimalVal: prevState.decimalVal += value
+               decimalVal: prevState.decimalVal+= value + "",
+               operations: prevState.operations
            }));
-           console.log(this.state.decimalVal)
+           /* Add in the current decimal */
+           let newArray = [...this.state.operations];
+           // Need to splice out the old decimal val, then add in the new one
+           // If dont do this, when we press equals, the decimal wont be placed in the array
+           // thus any decimal made just before pressing equals would not be incorporated
+
+           // Remember that the following would return the removed item if saved to variable
+           // so dont want to save it
+           newArray.splice(newArray.length - 1, 1, this.state.decimalVal);
+
+           await this.setState(prevState => ({
+               // Set the new operations array to the newArray with old operation removed
+               operations: [...newArray]
+           }))
+           console.log("Now the number is "+this.state.decimalVal)
            
        }
-       
-       else if(id === 'equals'){
+        else if (id === 'equals' && (""+this.state.operations[this.state.operations.length - 1]).endsWith('.')) {
 
-        //    Set the initial value of grandTotal to the first value in array
-        var grandTotal = operationsState[0] ? operationsState[0] : 0; // Holds the final total
-        var currentOperator = ""; // holds the current operator
-        
-        // If the equals button is pressed
-        for(let i=1;i<operationsState.length;i++){
-            // Loop through all the operations/numbers
-            // Dont include the last value since the equals sign
-            if(typeof operationsState[i]==='string'){
-                // Set the currentOperator
-                currentOperator = operationsState[i];
-                console.log(currentOperator)
-            }else{
-                // Take the grandtotal, apply it as 'x' and the current number from the array as 'y'
-                // it will perform the associated operation (currentOperator) that was between them
-                
-                grandTotal = this.state.operators[currentOperator](grandTotal,operationsState[i]);
-                // Set this value to the state (need to await otherwise doesnt get 
-                // finished calculating quick enough)
-                
-                
-            }
-            console.log(grandTotal);
+            await this.setState(prevState => ({
+                decimalVal: prevState.decimalVal += "0",
+               
 
+            }));
+            console.log(this.state.decimalVal)
+           let newArray = [...this.state.operations];
+           // Need to splice out the old decimal val, then add in the new one
+           // If dont do this, when we press equals, the decimal wont be placed in the array
+           // thus any decimal made just before pressing equals would not be incorporated
+
+           // Remember that the following would return the removed item if saved to variable
+           // so dont want to save it
+           newArray.splice(newArray.length - 1, 1, this.state.decimalVal);
+           
+           await this.setState(prevState => ({
+               
+               operations: [...newArray]
+
+           }));
+            console.log('add 0 to ends')
         }
-        await this.setState(prevState => ({
-                // Add equals sign to the end of the array, as well as total
-                // Want it to be printed to 'Display' in the CalcDisplay
-                total: grandTotal,
-                operations: [...prevState.operations, value, grandTotal]
-            }))
+       if(id === 'equals'){
+           operationsState = this.state.operations; // Reset the operations state since added 0 to end possibly
+           console.log(this.state.operations)
+            //    Set the initial value of grandTotal to the first value in array
+            var grandTotal = this.state.operations[0] ? this.state.operations[0] : 0; // Holds the final total
+            var currentOperator = ""; // holds the current operator
+            console.log("Equals button was hit, grandTotal set to first value in array "+grandTotal);
+            
+            // If the equals button is pressed
+            for(let i=1;i<operationsState.length;i++){
+                // Loop through all the operations/numbers
+                // Dont include the last value since the equals sign
+                if(typeof operationsState[i]==='string'){
+                    // Set the currentOperator
+                    currentOperator = operationsState[i];
+                    console.log("Current value from array "+currentOperator)
+                }else{
+                    // Take the grandtotal, apply it as 'x' and the current number from the array as 'y'
+                    // it will perform the associated operation (currentOperator) that was between them
+                    
+                    grandTotal = this.state.operators[currentOperator](grandTotal,operationsState[i]);
+                    // Set this value to the state (need to await otherwise doesnt get 
+                    // finished calculating quick enough)
+                    
+                    
+                }
+                
+
+            }
+            await this.setState(prevState => ({
+                    // Add equals sign to the end of the array, as well as total
+                    // Want it to be printed to 'Display' in the CalcDisplay
+                    total: grandTotal,
+                    operations: [...prevState.operations, value, grandTotal]
+                }))
+                console.log('Set grandTotal to the state total '+grandTotal+" = "+this.state.total)
 
        }
        else if(id==="clear"){
@@ -158,7 +216,8 @@ class App extends React.Component {
                 {operations:[]}
             )
         // TODO: You will need to check if two operaters placed beside eachother
-        }else if (typeof value==='string' && typeof operationsState[operationsState.length-1]==='string'){
+        }
+        else if (typeof value==='string' && typeof operationsState[operationsState.length-1]==='string' && !this.state.decimalActivated){
             // If the current value is an operator, and the last value put into 
             // the operations array is an operator, use the current one
             console.log('replacing operator')
@@ -185,7 +244,7 @@ class App extends React.Component {
 
             console.log(this.state.operations+" operations")
         }else if(!(operationsState[operationsState.length-1]==='string' && value===0) &&
-            !(operationsState.length===0 && value===0)){
+           !(operationsState.length === 0 && value === 0) && !this.state.decimalActivated){
                 
             // If the first number is not going to be 0 then
             // This will add the operations to the array if valid
@@ -215,10 +274,13 @@ class App extends React.Component {
 
         ) 
     }
-    
+
 }
 
+
+      
 export default App;
+                                                   
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
-
-
+                                         

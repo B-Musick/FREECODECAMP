@@ -1,0 +1,120 @@
+body{
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase; 
+    background-image: url("https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=751&q=80");
+}
+h1{
+    margin-bottom: 10px !important;
+}
+.page-title{
+    text-align: center;
+    justify-items: center;
+    
+    color: #0d6d85;
+    font-size: 4em !important;
+    color: #FFFFFF;
+    /* text-shadow design obtained from https://html-css-js.com/css/generator/text-shadow/ */
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+    
+}
+.page-container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+
+.component-container{
+    
+    display: flex;
+    justify-content: center;
+    
+}
+
+/**************************** BREAK STYLING **********************************/
+#break-label{
+    color: white;
+    font-size: 2em;
+    text-shadow: 2px -2px 0px #01cccc, 3px 8px 3px rgba(206,89,55,0);
+}
+#break-inner-container button{
+    margin: 1.5vh;
+    color: white;
+    background-color: grey;
+    text-transform: uppercase; 
+    border-radius: 30px 30px 30px 30px;
+    -moz-border-radius: 30px 30px 30px 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+    padding: 7px;
+}
+
+/**************************** SESSION STYLING **********************************/
+#session-label{  
+    color: white;
+    font-size: 2em;
+    text-shadow: 2px -2px 0px #01cccc, 3px 8px 3px rgba(206,89,55,0);
+}
+#session-inner-container button{
+    margin: 1.5vh;
+    color: white;
+    background-color: grey;
+    text-transform: uppercase; 
+    border-radius: 30px 30px 30px 30px;
+    -moz-border-radius: 30px 30px 30px 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+    padding: 7px;
+    
+}
+
+/**************************** TIMER STYLING **********************************/
+#timer-label{
+    padding-bottom: 20px;
+    text-align: center;
+    color: white;
+    font-size: 2em;
+    text-shadow: 2px -2px 0px #01cccc, 3px 8px 3px rgba(206,89,55,0);
+    
+}
+#timer-inner-container button{
+    margin: 1.5vh;
+    color: white;
+    background-color: grey;
+    text-transform: uppercase; 
+    border-radius: 30px 30px 30px 30px;
+    -moz-border-radius: 30px 30px 30px 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+    padding: 7px;
+}
+
+/***************************** CONTAINER STYLES *******************************/
+#timer-inner-container, #session-inner-container, #break-inner-container{
+    box-shadow: 3px -3px 0px #606969;
+    display: flex; 
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    width: 300px;
+    background-color: lightgray;
+    border-radius: 30px 30px 30px 30px;
+    -moz-border-radius: 30px 30px 30px 30px;
+    -webkit-border-radius: 30px 30px 30px 30px;
+}
+
+#time-left, #break-length, #session-length{
+
+    font-family: 'Orbitron', sans-serif;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    width: 80%;
+    font-size: 3vh;
+    text-align: center;
+    padding-top: 1.5vh;
+    height: 1.5em;
+    background: rgb(81, 113, 241); 
+    border: 5px solid;
+    padding: 10px;
+    box-shadow: 0px 0px 7px white inset;
+
+}
+

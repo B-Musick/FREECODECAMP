@@ -17,10 +17,13 @@ class Break extends React.Component{
             <div>
                 <h3 id="break-label">BREAK LENGTH</h3>
                 {/* Display current break state */}
-                <div id="break-length">{this.props.break}</div> 
-                {/* Buttons to increment and decrement the break state value in App */}
-                <button id="break-increment" onClick={this.onBreakIncrement}>Increment</button>
-                <button id="break-decrement" onClick={this.onBreakDecrement}>Decrement</button>
+                <div id="break-inner-container">
+                    <div id="break-length">{this.props.break}</div>
+                    {/* Buttons to increment and decrement the break state value in App */}
+                    <button id="break-increment" onClick={this.onBreakIncrement}>Increment</button>
+                    <button id="break-decrement" onClick={this.onBreakDecrement}>Decrement</button>
+                </div>
+
 
             </div>
         )

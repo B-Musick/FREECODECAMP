@@ -131,9 +131,12 @@ class Timer extends React.Component{
                     {this.setTimerLabel()}
                 </div>
                 {/* Timer */}
-                <div id="time-left">{this.renderTime()}</div>
-                <button id="start_stop" onClick={this.timer}>Start</button>
-                <button id="reset" onClick={this.resetTime}>Reset</button>
+                <div id="timer-inner-container">
+                    <div id="time-left">{this.renderTime()}</div>
+                    <button id="start_stop" onClick={this.timer}>Start</button>
+                    <button id="reset" onClick={this.resetTime}>Reset</button>
+                </div>
+
             </div>
 
         )
