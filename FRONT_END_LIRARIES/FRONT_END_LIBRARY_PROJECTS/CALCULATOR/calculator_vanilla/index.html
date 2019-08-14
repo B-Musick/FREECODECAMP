@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <div>
+        <h1>CACULATOR</h1>
+        <p style="font-size: 1.5vh">CODING BY: BRENDAN MUSICK</p>
+    </div>
+
     <div id="calculator-container">
         <div id="calculator-displays-container">
             <div style="color:white" id="display">
@@ -19,32 +24,33 @@
         </div>
         <div id="calculator-buttons-container">
             <div class="row">
-                <button id="zero" value="0">0</button>
-                <button id="multiply" value="*">*</button>
-                <button id="divide" value="/">/</button>
-                <button id="decimal" value=".">.</button>
-            </div>
-            
-            <div class="row">
-                <button id="one" value="1">1</button>
-                <button id="two" value="2">2</button>
-                <button id="three" value="3">3</button>
-                <button id="subtract" value="-">-</button>
-            </div>
-            
-            <div class="row">
-                <button id="four" value="4">4</button>
-                <button id="five" value="5">5</button>
-                <button id="six" value="6">6</button>
+                <button class="operation-button" id="multiply" value="*">*</button>
+                <button class="integer-button" id="zero" value="0">0</button>
+                <button class="operation-button" id="divide" value="/">/</button>               
                 <button id="clear" value="CE">CE</button>
             </div>
             
             <div class="row">
+                <button class="integer-button" id="one" value="1">1</button>
+                <button class="integer-button" id="two" value="2">2</button>
+                <button class="integer-button" id="three" value="3">3</button>
+                <button class="operation-button" id="subtract" value="-">-</button>
+            </div>
             
-                <button id="seven" value="7">7</button>
-                <button id="eight" value="8">8</button>
-                <button id="nine" value="9">9</button>
-                <button id="add" value="+">+</button>
+            <div class="row">
+                <button class="integer-button" id="four" value="4">4</button>
+                <button class="integer-button" id="five" value="5">5</button>
+                <button class="integer-button" id="six" value="6">6</button>
+                <button class="operation-button" id="decimal" value=".">.</button>
+
+            </div>
+            
+            <div class="row">
+            
+                <button class="integer-button" id="seven" value="7">7</button>
+                <button class="integer-button" id="eight" value="8">8</button>
+                <button class="integer-button" id="nine" value="9">9</button>
+                <button class="operation-button" id="add" value="+">+</button>
             </div>
             
             <div class="row">
