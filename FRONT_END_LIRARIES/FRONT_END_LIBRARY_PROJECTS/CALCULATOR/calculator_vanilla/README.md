@@ -1,0 +1,1 @@
+- To check if a value is NaN use Number.isNaN(value)

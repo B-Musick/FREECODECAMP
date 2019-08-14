@@ -109,9 +109,6 @@ req.onload = () => {
 
 
 
-
-
-
 };
 
 req.send();
