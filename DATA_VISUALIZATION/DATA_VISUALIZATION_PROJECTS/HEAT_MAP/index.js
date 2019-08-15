@@ -1,5 +1,6 @@
 console.log('here')
 d3.json(
+    // COUNTY DATA
     'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/global-temperature.json'
 ).then(data => {
 

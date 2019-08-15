@@ -1,0 +1,3 @@
+- PATHS: https://www.dashingd3js.com/svg-paths-and-d3js
+    - Shows good representation of attribute 'd'
+    - The path mini-language
