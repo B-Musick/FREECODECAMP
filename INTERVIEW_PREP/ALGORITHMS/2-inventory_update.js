@@ -71,3 +71,5 @@ var newInv = [
 
 updateInventory(curInv, newInv);
 
+// LEARNED
+// https://stackoverflow.com/questions/5435228/sort-an-array-with-arrays-in-it-by-string/5435341
