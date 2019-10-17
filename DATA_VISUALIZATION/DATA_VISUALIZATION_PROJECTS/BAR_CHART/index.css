@@ -1,4 +1,11 @@
+body{
+  font-family: 'Special Elite', cursive;
+  font-size: 35px; 
+  background-color: #4aa89c;
+}
+
 #tooltip {
+  display: none;
   position: absolute;
   text-align: center;
   width: 80px;
@@ -10,4 +17,9 @@
   border: 0px;
   border-radius: 4px;
   pointer-events: none;
+}
+
+svg{
+  padding: 10px;
+  border: 3px solid black;
 }

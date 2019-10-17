@@ -10,9 +10,11 @@ function mergeSort(array) {
     let arrOne = array.slice(0,separator);
     let arrTwo = array.slice(separator);
 
+    // Call mergeSort to divide the arrays even smaller
     arrOne = mergeSort(arrOne);
     arrTwo = mergeSort(arrTwo);
 
+    // When th
     return merge(arrOne, arrTwo);
 }
 

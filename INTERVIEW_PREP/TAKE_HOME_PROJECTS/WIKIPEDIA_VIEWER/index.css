@@ -1,0 +1,85 @@
+body{
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 40% 60%;
+    background-color: rgb(91, 37, 45);
+}
+#search-bar-container{
+    height: 100%;
+    width: 100%;
+    grid-column: 1/2;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50%;
+    display: grid;
+    grid-template-rows: 40px 100px 35px;
+    padding: 20px;
+   
+    
+}
+#search-bar-container input{
+    grid-row: 1/2;
+    text-align: center;
+    font-size: 15px; 
+    height: 20px;
+    border-radius: 20px;
+    padding: 5px;
+    border: 2px solid rgb(197, 83, 110);
+    background-color:  rgb(91, 37, 45);
+    outline: none;
+    color:rgb(197, 83, 110);
+
+}
+#page-input-submit{
+    grid-row: 2/3;
+}
+
+
+#search-bar-container button{
+    
+    height: 24px;
+    background-color:rgb(197, 83, 110);
+    color: rgb(91, 37, 45);
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    outline: none;
+}
+#random-page-button{
+
+
+}
+#random-page-button button{
+    background-color: rgb(91, 37, 45);
+    color:rgb(197, 83, 110);
+    grid-row: 3/4;
+    font-size: 20px;
+    width: 40%;
+    border: 4px solid rgb(197, 83, 110);
+    height: 40px;
+    border-radius: 0;
+
+}
+#api-response-container{
+    height: 100%;
+    grid-column: 2/3;
+    padding: 0 40px;
+}
+.wiki-page{
+    -webkit-box-shadow: 10px 3px 34px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 3px 34px -5px rgba(0,0,0,0.75);
+    box-shadow: 10px 3px 34px -5px rgba(0,0,0,0.75);
+    height: 70px;
+    width: 98%;
+    padding: 3px;
+    
+    margin: 10px 0;
+    overflow: hidden;
+    background-color: rgb(197, 83, 110);
+}
+.wiki-page-anchor{
+    text-decoration: none;
+    color: rgb(71, 18, 37);
+    
+}

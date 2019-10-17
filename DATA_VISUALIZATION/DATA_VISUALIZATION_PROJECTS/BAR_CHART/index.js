@@ -4,25 +4,27 @@ let req = new XMLHttpRequest();
 req.open("GET", 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json', true);
 
 req.onload = () => {
-    const svg = d3.select('svg')
+    const svg = d3.select('svg');
 
     // dataset will be an array of arrays, the first value being the date, second the gdp
     let dataset = []
 
-    // Get width and heights values
-    const width = +(svg.attr('width'));
-    const height = +(svg.attr('height'));
+    // Get width and heights values, + parses the values to float
+    const width = 0.70*screen.width;
+    const height = 0.70*screen.height;
     const padding = 60;
-    // Push all the GDP data from Federal reserve
+    
+    // Push all the GDP data from Federal reserve, parse into usable data 
     json = JSON.parse(req.responseText);
     
     json.data.forEach((val)=>{
+        // Push the data into the array(date string, GDP value)
         dataset.push(val);    
-        
     })
     
     // Maps a new array with the dates in proper format, and the original gdp
     let dataMap = dataset.map(data=>{
+        // Dates are the first value in each array ("1947-01-01")
         return [new Date(...data[0].match(/\d+/g)),data[1]];
     })
 
@@ -30,7 +32,7 @@ req.onload = () => {
     let xScale = d3.scaleTime()
         // Take the domain 'dates' and map them to the x-axis
         .domain([dataMap[0][0], dataMap[dataMap.length-1][0]]) // (first(earliest) date, last(latest) date)
-        .range([padding, width - padding]);
+        .range([padding, (width - padding)]); // Left screen, right screen
         
     // console.log(xScale(new Date('1947 01 01'))); // How access dates in xScale
 
@@ -41,10 +43,29 @@ req.onload = () => {
          0 ------> height-padding(bottom), then d3.max(dataMap, d =>{d[1]})]) -----> padding (top) */
         .range([height-padding, padding]);
 
-    console.log(yScale('1000'))
+    // console.log(yScale('1000')) // Test scale
+
     // Axis takes scale function, determine whaat values in scale correspond to what pixels
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale);
+
+    svg.append("text")
+        .attr("class", "y-label")
+        .attr("text-anchor", "middle")
+        .attr("y", 2)
+        .attr('x',-(height/2))
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(-90)")
+        .style('font-size',screen.width*0.01+"")
+        .text("GDP ( billions $ )");
+    
+    svg.append("text")
+        .attr("class", "x label")
+        .attr("text-anchor", "end")
+        .attr("x", width/2)
+        .attr("y", height - 12)
+        .style('font-size', screen.width * 0.01 + "")
+        .text("Date (year)");
 
     // Holds value for the bar chart bars width
     const barWidth = 3;
@@ -71,18 +92,6 @@ req.onload = () => {
             .attr("transform",`translate(0,${-padding})`)
             .style('fill','#4aa89c')
             // Tooltip
-            .on("mouseover", function (d, i) {
-                d3.select(this).style("fill", "a8eddf");
-                tooltip.attr("id", "tooltip")
-                tooltip.style("fill", "#a8eddf")
-                tooltip.attr("data-date", d[0])
-                tooltip.style('opacity', 1)
-                tooltip.html("In "+d[0] + " GDP was " + d[1])
-                    // This will give the coordinates where mouseevent is and put tooltip there
-                    .style("left", (i * barWidth)+padding + "px")
-                    .style("top", height - (2*padding)  + "px")
-
-            })
             .on("mouseout", function () {
                 // When mouse stops hovering a specific bar
                 d3.select(this)
@@ -90,7 +99,21 @@ req.onload = () => {
                     .duration(400)
                     .style("fill", "#4aa89c");
                 tooltip.style("opacity", 0);
+                tooltip.style("display", "block")
             })
+            .on("mouseover", function (d, i) {
+                d3.select(this).style("fill", "a8eddf");
+                tooltip.attr("id", "tooltip")
+                tooltip.style("fill", "#a8eddf")
+                tooltip.style("display", "block")
+                tooltip.attr("data-date", d[0])
+                tooltip.style('opacity', 1)
+                tooltip.html("In "+d[0] + " GDP was " + d[1])
+                    // This will give the coordinates where mouseevent is and put tooltip there
+                    .style("left", (i * barWidth)+padding + "px")
+                    .style("top", height - (2*padding)  + "px")
+            })
+
 
     svg.append('g')
         // Define x,y coordinates translation from the left of screen and from top of screen 
@@ -106,12 +129,8 @@ req.onload = () => {
         .attr('id', 'y-axis');
 
     svg.style('background-color', '#eaebe4');
-
-
-
 };
 
 req.send();
-
 
 
